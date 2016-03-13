@@ -14,7 +14,7 @@ public:
 	static LanguageData* getInstance();
 	static void destoryInstance();
 
-	const char* getValue(const std::string& key);
+	const char* getValue(const std::string key);
 private:
 	bool init(const char* file);
 

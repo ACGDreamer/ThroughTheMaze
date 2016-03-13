@@ -22,7 +22,7 @@ DataUtils * DataUtils::getInstance()
 	return m_instance;
 }
 
-string DataUtils::getStrFromFile(char * fileName)
+string DataUtils::getStrFromFile(const char * fileName)
 {
 	string filePath = FileUtils::getInstance()->fullPathForFilename(fileName);
 	unsigned char *data = NULL;
@@ -34,10 +34,8 @@ string DataUtils::getStrFromFile(char * fileName)
 	return str;
 }
 
-string DataUtils::getStrFromJson(string & str, string & key)
+string DataUtils::getStrFromJson(string str, string key)
 {
-	str = changeWordStrToJson(str);
-	str = replace_all_distinct(str, "\r\n", "");
 	word = "No Name";
 	rapidjson::Document _doc;
 	_doc.Parse<0>(str.c_str());
@@ -58,11 +56,12 @@ string DataUtils::getStrFromJson(string & str, string & key)
 
 string DataUtils::changeWordStrToJson(string str)
 {
-	std::string::size_type pos = str.find("{", 0);
-	str = str.replace(0, pos, "");
-	pos = str.find("}", 0);
+	std::string::size_type pos = str.find("[{", 0);
+	str = str.replace(0, pos+1, "{");
+	pos = str.find("}]", 0);
 	std::string::size_type lastPos = pos;
-	str = str.replace(lastPos + 1, str.length() - lastPos, "");
+	str = str.replace(lastPos, str.length() - lastPos, "}");
+	str = replace_all_distinct(str, "\r\n", "");
 	return str;
 }
 

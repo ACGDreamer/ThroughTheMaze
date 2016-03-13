@@ -28,14 +28,14 @@ public:
 	*	获得一个本文文本内容的所有字符串
 	*	fileName  文件名字
 	*/
-	string getStrFromFile(char* fileName);
+	string getStrFromFile(const char* fileName);
 
 	/*
 	*   从JSON字符串读取一个key对应的string
 	*	str  json字符串
 	*	key	 value对应的key
 	*/
-	string getStrFromJson(string &str, string& key);
+	string getStrFromJson(string str, string key);
 
 	/*
 	*  获得一个本地XML文件的序列类
@@ -81,6 +81,12 @@ public:
 	*/
 	string getNowYearMonthDay();
 
+	/*
+	*将特定格式的字符串转化为json
+	*/
+	string changeWordStrToJson(string str);
+
+
 	int random(int start = 0, int end = 10);
 	float random(float start = 0.0f, float end = 1.0f);
 
@@ -88,7 +94,6 @@ private:
 	static	DataUtils *  m_instance;
 
 	string word;
-	string changeWordStrToJson(string str);
 	string replace_all_distinct(string& str, const string& old_value, const string& new_value);
 	const char* getContent(tinyxml2::XMLDocument * file, const char* pKey);
 };
